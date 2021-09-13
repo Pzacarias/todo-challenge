@@ -2,9 +2,7 @@ package ar.com.ensolvers.todo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import ar.com.ensolvers.todo.entities.ToDoList;
 import ar.com.ensolvers.todo.model.request.InfoNewToDoList;
@@ -18,7 +16,8 @@ public class ToDoListController {
     @Autowired
     ToDoListService service;
 
-    @PostMapping("/todolist")
+
+    @PostMapping("/todo-lists")
     public ResponseEntity<GenericResponse> create(@RequestBody InfoNewToDoList newToDoList) {
 
         GenericResponse response = new GenericResponse();
@@ -43,4 +42,7 @@ public class ToDoListController {
         }
     }
     
+
+
 }
+
