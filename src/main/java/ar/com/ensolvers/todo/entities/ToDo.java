@@ -9,7 +9,7 @@ public class ToDo {
     @Id
     @Column(name = "todo_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)    
-    private Integer id;
+    private Integer toDoId;
 
     private String text;
 
@@ -19,12 +19,12 @@ public class ToDo {
     @JoinColumn(name = "todolist_id", referencedColumnName = "todolist_id")
     private ToDoList toDoList;
 
-    public Integer getId() {
-        return id;
+    public Integer getToDoId() {
+        return toDoId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setToDoId(Integer toDoId) {
+        this.toDoId = toDoId;
     }
 
     public String getText() {

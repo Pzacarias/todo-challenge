@@ -12,12 +12,12 @@ public class ToDoList {
     @Id
     @Column(name = "todolist_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)  
-    private Integer id;
+    private Integer toDoListId;
 
     private String title;
 
-    @OneToMany(mappedBy = "todolist", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<ToDo> toDos = new ArrayList <>();
+    @OneToMany(mappedBy = "toDoList", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<ToDo> tasks = new ArrayList <>();
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
@@ -27,12 +27,13 @@ public class ToDoList {
     @JoinColumn(name = "folder_id", referencedColumnName = "folder_id")
     private Folder folder;
 
-    public Integer getId() {
-        return id;
+    
+    public Integer getToDoListId() {
+        return toDoListId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setToDoListId(Integer toDoListId) {
+        this.toDoListId = toDoListId;
     }
 
     public String getTitle() {
@@ -43,12 +44,12 @@ public class ToDoList {
         this.title = title;
     }
 
-    public List<ToDo> getToDos() {
-        return toDos;
+    public List<ToDo> getTasks() {
+        return tasks;
     }
 
-    public void setToDos(List<ToDo> toDos) {
-        this.toDos = toDos;
+    public void setTasks(List<ToDo> tasks) {
+        this.tasks = tasks;
     }
 
     public User getUser() {
@@ -59,8 +60,8 @@ public class ToDoList {
         this.user = user;
     }
 
-    public void addToDo(ToDo toDo) {
-        this.toDos.add(toDo);
+    public void addTasks(ToDo toDo) {
+        this.tasks.add(toDo);
         toDo.setToDoList(this);
     }
 

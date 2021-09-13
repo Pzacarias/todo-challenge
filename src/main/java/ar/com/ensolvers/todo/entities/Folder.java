@@ -16,7 +16,7 @@ public class Folder {
 
     private String title;
 
-    @OneToMany(mappedBy = "todolist", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "folder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ToDoList> toDoLists = new ArrayList <>();
 
     @ManyToOne
