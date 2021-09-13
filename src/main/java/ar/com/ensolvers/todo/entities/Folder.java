@@ -12,7 +12,7 @@ public class Folder {
     @Id
     @Column(name = "folder_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)  
-    private Integer id;
+    private Integer folderId;
 
     private String title;
 
@@ -23,12 +23,12 @@ public class Folder {
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
 
-    public Integer getId() {
-        return id;
+    public Integer getFolderId() {
+        return folderId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setFolderId(Integer id) {
+        this.folderId = folderId;
     }
 
     public String getTitle() {
