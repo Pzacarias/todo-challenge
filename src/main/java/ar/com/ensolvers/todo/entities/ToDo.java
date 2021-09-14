@@ -2,6 +2,8 @@ package ar.com.ensolvers.todo.entities;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table (name = "todo")
 public class ToDo {
@@ -17,6 +19,7 @@ public class ToDo {
 
     @ManyToOne
     @JoinColumn(name = "todolist_id", referencedColumnName = "todolist_id")
+    @JsonIgnore
     private ToDoList toDoList;
 
     public Integer getToDoId() {

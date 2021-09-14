@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table (name = "todolist")
@@ -21,10 +22,12 @@ public class ToDoList {
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @JsonIgnore
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "folder_id", referencedColumnName = "folder_id")
+    @JsonIgnore
     private Folder folder;
 
     

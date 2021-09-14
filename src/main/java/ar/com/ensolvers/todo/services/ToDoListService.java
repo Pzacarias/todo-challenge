@@ -64,5 +64,10 @@ public class ToDoListService {
         return false;
     }
 
+
+    public List<ToDoList> getAll() {
+        return repo.findAll();
+    }
+
   
 }
