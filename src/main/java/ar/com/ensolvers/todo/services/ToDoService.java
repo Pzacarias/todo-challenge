@@ -41,6 +41,11 @@ public class ToDoService {
         return repo.findByToDoId(id);
     }
 
+    public void update(ToDo toDo) {
+        repo.save(toDo);
+    
+    }
+
     
 
 }

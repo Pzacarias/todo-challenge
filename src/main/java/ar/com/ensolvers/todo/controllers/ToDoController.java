@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 
 import ar.com.ensolvers.todo.entities.ToDo;
+import ar.com.ensolvers.todo.model.request.FinishedStatusRequest;
 import ar.com.ensolvers.todo.model.request.InfoNewToDo;
 import ar.com.ensolvers.todo.model.response.GenericResponse;
 import ar.com.ensolvers.todo.services.ToDoService;
@@ -40,6 +41,23 @@ public class ToDoController {
             return ResponseEntity.badRequest().body(response);
         }
         return ResponseEntity.ok(service.findByToDoId(id));
+    }
+
+    @PutMapping("/todo/{id}/finished")
+    public ResponseEntity<GenericResponse> putActualizarEstadoVuelo(@PathVariable Integer id,
+            @RequestBody FinishedStatusRequest finishedState) {
+
+        GenericResponse r = new GenericResponse();
+
+        ToDo toDo = service.findByToDoId(id);
+        toDo.setFinished(finishedState.finished);
+        service.update(toDo);
+
+        r.isOk = true;
+        r.message = "The state of the ToDo has been updated.";
+        r.id = toDo.getToDoId();
+
+        return ResponseEntity.ok(r);
     }
 
 }
