@@ -6,9 +6,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 
 import ar.com.ensolvers.todo.entities.ToDo;
+import ar.com.ensolvers.todo.entities.ToDoList;
 import ar.com.ensolvers.todo.model.request.FinishedStatusRequest;
 import ar.com.ensolvers.todo.model.request.InfoNewToDo;
+import ar.com.ensolvers.todo.model.request.InfoToDoListUpdate;
 import ar.com.ensolvers.todo.model.response.GenericResponse;
+import ar.com.ensolvers.todo.services.ToDoListService;
 import ar.com.ensolvers.todo.services.ToDoService;
 
 @RestController
@@ -16,6 +19,9 @@ public class ToDoController {
 
     @Autowired
     ToDoService service;
+
+    @Autowired
+    ToDoListService toDoListService;
 
     @PostMapping("/todo")
     public ResponseEntity<GenericResponse> create(@RequestBody InfoNewToDo newToDo) {
@@ -44,7 +50,7 @@ public class ToDoController {
     }
 
     @PutMapping("/todo/{id}/finished")
-    public ResponseEntity<GenericResponse> putActualizarEstadoVuelo(@PathVariable Integer id,
+    public ResponseEntity<GenericResponse> update(@PathVariable Integer id,
             @RequestBody FinishedStatusRequest finishedState) {
 
         GenericResponse r = new GenericResponse();
@@ -59,5 +65,25 @@ public class ToDoController {
 
         return ResponseEntity.ok(r);
     }
+
+    @PutMapping("/todo/{id}/todo-list")
+    public ResponseEntity<GenericResponse> update(@PathVariable Integer id,
+            @RequestBody InfoToDoListUpdate updateInfo) {
+
+        GenericResponse r = new GenericResponse();
+
+        ToDo toDo = service.findByToDoId(id);
+        ToDoList toDoList = toDoListService.findByToDoListId(updateInfo.toDoListId);
+        toDo.setToDoList(toDoList);
+        service.update(toDo);        
+
+        r.isOk = true;
+        r.message = "The assignt list of this ToDo has been updated.";
+        r.id = toDo.getToDoId();
+
+        return ResponseEntity.ok(r);
+    }
+
+    
 
 }
