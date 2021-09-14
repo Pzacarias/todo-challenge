@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import org.springframework.lang.Nullable;
+
 @Entity
 @Table (name = "todolist")
 public class ToDoList {
@@ -28,6 +30,7 @@ public class ToDoList {
     @ManyToOne
     @JoinColumn(name = "folder_id", referencedColumnName = "folder_id")
     @JsonIgnore
+    @Nullable
     private Folder folder;
 
     
