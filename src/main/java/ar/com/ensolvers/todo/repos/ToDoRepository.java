@@ -7,5 +7,7 @@ import ar.com.ensolvers.todo.entities.ToDo;
 
 @Repository
 public interface ToDoRepository extends JpaRepository<ToDo,Integer> {
+
+    ToDo findByToDoId(Integer id);
     
 }

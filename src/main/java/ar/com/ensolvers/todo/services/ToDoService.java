@@ -28,4 +28,19 @@ public class ToDoService {
         return repo.save(toDo);
     }
 
+    public boolean validateToDoExists(Integer id) {
+        ToDo toDo = repo.findByToDoId(id);
+        if (toDo != null) {
+            return true;
+        } else
+            return false;
+
+    }
+
+    public ToDo findByToDoId(Integer id) {
+        return repo.findByToDoId(id);
+    }
+
+    
+
 }
