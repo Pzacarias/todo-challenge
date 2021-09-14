@@ -1,12 +1,9 @@
 package ar.com.ensolvers.todo.services;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
-import org.hibernate.secure.spi.GrantedPermission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -51,10 +48,7 @@ public class JWTUserDetailsService implements UserDetailsService {
 
         });
 
-        // Este devuelve el usuario, SIN la password y sin buscarlo en la DB
-        // confiamos que es el token porque lo validaremos despues
-        // esto nos permite no ir a buscar a la db todo el tiempo
-        // IGUALMENTE, buscar en la DB como mecanismo de proteccion no esta mal.
+      
         return new User(username, "", authorities);
 
     }

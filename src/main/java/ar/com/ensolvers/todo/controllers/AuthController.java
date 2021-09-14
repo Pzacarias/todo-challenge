@@ -1,6 +1,4 @@
 package ar.com.ensolvers.todo.controllers;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +13,6 @@ import ar.com.ensolvers.todo.entities.User;
 import ar.com.ensolvers.todo.model.request.*;
 import ar.com.ensolvers.todo.model.response.*;
 import ar.com.ensolvers.todo.security.jwt.JWTTokenUtil;
-import ar.com.ensolvers.todo.services.JWTUserDetailsService;
 import ar.com.ensolvers.todo.services.UserService;
 
 
@@ -28,10 +25,6 @@ public class AuthController {
 
     @Autowired
     private JWTTokenUtil jwtTokenUtil;
-
-    @Autowired
-    private JWTUserDetailsService userDetailsService;
-
  
     @PostMapping("auth/register")
     public ResponseEntity<RegistrationResponse> postRegisterUser(@RequestBody RegistrationRequest req,

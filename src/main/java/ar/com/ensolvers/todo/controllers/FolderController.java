@@ -10,14 +10,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import ar.com.ensolvers.todo.entities.Folder;
-import ar.com.ensolvers.todo.entities.ToDoList;
 import ar.com.ensolvers.todo.entities.User;
 import ar.com.ensolvers.todo.model.request.InfoNewFolderRequest;
 import ar.com.ensolvers.todo.model.response.GenericResponse;
 import ar.com.ensolvers.todo.services.UserService;
 import ar.com.ensolvers.todo.services.FolderService.ValidationFolder;
-import ar.com.ensolvers.todo.services.ToDoListService.ValidationToDoList;
-
 
 @RestController
 public class FolderController {
@@ -55,6 +52,25 @@ public class FolderController {
 
             return ResponseEntity.badRequest().body(response);
         }
+    }
+
+    @DeleteMapping("/folders/{id}")
+    public ResponseEntity<GenericResponse> delete(@PathVariable Integer id) {
+
+        GenericResponse response = new GenericResponse();
+        if (service.validateFolderExists(id)) {
+            service.delete(id);
+            response.isOk = true;
+            response.message = "The Folder has been deleted correctly.";
+            return ResponseEntity.ok(response);
+
+        } else {
+            response.isOk = false;
+            response.message = "The id that was entered is incorrect.";
+            return ResponseEntity.badRequest().body(response);
+
+        }
+
     }
     
 }

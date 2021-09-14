@@ -54,4 +54,17 @@ public class FolderService {
         return repo.findByFolderId(folderId);
     }
 
+    public void delete(Integer id) {
+        repo.deleteById(id);
+    }
+
+    public boolean validateFolderExists(Integer id) {
+        Folder folder = repo.findByFolderId(id);
+        if (folder != null) {
+            return true;
+        } else
+            return false;
+
+    }
+    
 }
