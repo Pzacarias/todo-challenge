@@ -8,7 +8,8 @@ import javax.persistence.*;
 import org.hibernate.annotations.NaturalId;
 
 @Entity
-@Table(name = "`user`")
+@Table(name = "user")
+//@Table(name = "`user`") when using Postgre as user is a reserved keyword
 public class User {
  
     @Id
