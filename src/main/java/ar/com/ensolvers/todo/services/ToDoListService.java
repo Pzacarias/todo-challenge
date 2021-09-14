@@ -102,4 +102,9 @@ public class ToDoListService {
         repo.deleteById(id);
     }
 
+    public void update(ToDoList toDoList) {
+        repo.save(toDoList);
+    
+    }
+
 }

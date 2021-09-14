@@ -4,10 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.com.ensolvers.todo.entities.Folder;
-import ar.com.ensolvers.todo.entities.ToDoList;
 import ar.com.ensolvers.todo.entities.User;
 import ar.com.ensolvers.todo.repos.FolderRepository;
-import ar.com.ensolvers.todo.services.ToDoListService.ValidationToDoList;
+
 
 @Service
 public class FolderService {
@@ -49,6 +48,10 @@ public class FolderService {
         folder.setUser(user);       
 
         return repo.save(folder);
+    }
+
+    public Folder findByFolderId(Integer folderId) {
+        return repo.findByFolderId(folderId);
     }
 
 }

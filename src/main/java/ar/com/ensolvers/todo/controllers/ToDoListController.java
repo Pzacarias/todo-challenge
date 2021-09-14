@@ -8,11 +8,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import ar.com.ensolvers.todo.entities.Folder;
 import ar.com.ensolvers.todo.entities.ToDoList;
 import ar.com.ensolvers.todo.entities.User;
+import ar.com.ensolvers.todo.model.request.FolderUpdateRequest;
 import ar.com.ensolvers.todo.model.request.InfoNewToDoList;
 import ar.com.ensolvers.todo.model.request.InfoUpdateToDoList;
 import ar.com.ensolvers.todo.model.response.GenericResponse;
+import ar.com.ensolvers.todo.services.FolderService;
 import ar.com.ensolvers.todo.services.ToDoListService;
 import ar.com.ensolvers.todo.services.UserService;
 import ar.com.ensolvers.todo.services.ToDoListService.ValidateToDoListUpdate;
@@ -23,6 +26,9 @@ public class ToDoListController {
 
     @Autowired
     ToDoListService service;
+
+    @Autowired
+    FolderService folderService;
 
     @Autowired
     UserService userService;
@@ -100,6 +106,24 @@ public class ToDoListController {
             return ResponseEntity.badRequest().body(response);
         }
 
+    }
+
+    @PutMapping("/todo-lists/{id}/folder")
+    public ResponseEntity<GenericResponse> update(@PathVariable Integer id,
+            @RequestBody FolderUpdateRequest infoFolder) {
+
+        GenericResponse r = new GenericResponse();
+
+        ToDoList toDoList = service.findByToDoListId(id);
+        Folder folder = folderService.findByFolderId(infoFolder.folderId);
+        toDoList.setFolder(folder);
+        service.update(toDoList);   
+
+        r.isOk = true;
+        r.message = "The folder of the ToDo has been updated.";
+        r.id = toDoList.getToDoListId();
+
+        return ResponseEntity.ok(r);
     }
 
     @DeleteMapping("/todo-lists/{id}")
