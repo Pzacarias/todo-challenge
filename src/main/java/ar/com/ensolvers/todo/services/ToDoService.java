@@ -46,6 +46,10 @@ public class ToDoService {
     
     }
 
+    public void delete(Integer id) {
+        repo.deleteById(id);
+    }
+
     
 
 }

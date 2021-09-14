@@ -84,6 +84,25 @@ public class ToDoController {
         return ResponseEntity.ok(r);
     }
 
+    @DeleteMapping("/todo/{id}")
+    public ResponseEntity<GenericResponse> delete(@PathVariable Integer id) {
+
+        GenericResponse response = new GenericResponse();
+        if (service.validateToDoExists(id)) {
+            service.delete(id);
+            response.isOk = true;
+            response.message = "The To-Do has been deleted correctly.";
+            return ResponseEntity.ok(response);
+
+        } else {
+            response.isOk = false;
+            response.message = "The id that was entered is incorrect.";
+            return ResponseEntity.badRequest().body(response);
+
+        }
+
+    }
+
     
 
 }
