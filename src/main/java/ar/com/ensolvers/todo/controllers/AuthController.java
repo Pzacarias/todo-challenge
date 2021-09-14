@@ -29,7 +29,7 @@ public class AuthController {
     @Autowired
     private JWTUserDetailsService userDetailsService;
  
-    @PostMapping("auth/register")
+    @PostMapping("api/auth/register")
     public ResponseEntity<RegistrationResponse> postRegisterUser(@RequestBody RegistrationRequest req,
             BindingResult results) {
         RegistrationResponse r = new RegistrationResponse();
@@ -45,7 +45,7 @@ public class AuthController {
 
     }
 
-    @PostMapping("auth/login") 
+    @PostMapping("api/auth/login") 
     public ResponseEntity<?> createAuthenticationToken(@RequestBody LoginRequest authenticationRequest,
             BindingResult results) throws Exception {
 
