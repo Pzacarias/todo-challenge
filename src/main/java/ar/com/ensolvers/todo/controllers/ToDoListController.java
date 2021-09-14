@@ -60,6 +60,16 @@ public class ToDoListController {
         return ResponseEntity.ok(service.getAll());
     }
     
+    @GetMapping("/todo-lists/{id}")
+    public ResponseEntity<?> getToDoListById(@PathVariable Integer id) {
+        GenericResponse response = new GenericResponse();
+        if (!service.validateToDoListExists(id)) {
+            response.isOk = false;
+            response.message = "The id that was entered is incorrect.";
+            return ResponseEntity.badRequest().body(response);
+        }
+        return ResponseEntity.ok(service.findByToDoListId(id));
+    }
 
 
 }

@@ -69,5 +69,20 @@ public class ToDoListService {
         return repo.findAll();
     }
 
+
+    public boolean validateToDoListExists(Integer id) {
+        ToDoList toDoList = repo.findByToDoListId(id);
+        if (toDoList != null) {
+            return true;
+        } else
+            return false;
+
+    }
+
+
+    public ToDoList findByToDoListId(Integer id) {
+        return repo.findByToDoListId(id);
+    }
+
   
 }

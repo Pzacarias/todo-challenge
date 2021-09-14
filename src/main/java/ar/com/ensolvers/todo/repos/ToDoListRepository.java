@@ -9,4 +9,5 @@ import ar.com.ensolvers.todo.entities.ToDoList;
 public interface ToDoListRepository extends JpaRepository<ToDoList, Integer>{
     
     ToDoList findByTitle (String title);
+    ToDoList findByToDoListId (Integer id);
 }
