@@ -27,7 +27,6 @@ public class ToDoListController {
     @Autowired
     UserService userService;
 
-
     @PostMapping("/todo-lists")
     public ResponseEntity<GenericResponse> create(@RequestBody InfoNewToDoList newToDoList) {
 
@@ -61,7 +60,7 @@ public class ToDoListController {
     public ResponseEntity<List<ToDoList>> getToDoLists() {
         return ResponseEntity.ok(service.getAll());
     }
-    
+
     @GetMapping("/todo-lists/{id}")
     public ResponseEntity<?> getToDoListById(@PathVariable Integer id) {
         GenericResponse response = new GenericResponse();
@@ -74,8 +73,7 @@ public class ToDoListController {
     }
 
     @PutMapping("/todo-lists/{id}")
-    public ResponseEntity<GenericResponse> update(@PathVariable Integer id,
-            @RequestBody InfoUpdateToDoList newInfo) {
+    public ResponseEntity<GenericResponse> update(@PathVariable Integer id, @RequestBody InfoUpdateToDoList newInfo) {
 
         GenericResponse response = new GenericResponse();
 
@@ -90,7 +88,7 @@ public class ToDoListController {
 
             response.isOk = true;
             response.message = "The To-Do List was correctly edited.";
-            response.id = toDoList.getToDoListId(); 
+            response.id = toDoList.getToDoListId();
 
             return ResponseEntity.ok(response);
         }
@@ -101,9 +99,26 @@ public class ToDoListController {
 
             return ResponseEntity.badRequest().body(response);
         }
+
     }
 
+    @DeleteMapping("/todo-lists/{id}")
+    public ResponseEntity<GenericResponse> delete(@PathVariable Integer id) {
 
+        GenericResponse response = new GenericResponse();
+        if (service.validateToDoListExists(id)) {
+            service.delete(id);
+            response.isOk = true;
+            response.message = "The To-Do List has been deleted correctly.";
+            return ResponseEntity.ok(response);
+
+        } else {
+            response.isOk = false;
+            response.message = "The id that was entered is incorrect.";
+            return ResponseEntity.badRequest().body(response);
+
+        }
+
+    }
 
 }
-

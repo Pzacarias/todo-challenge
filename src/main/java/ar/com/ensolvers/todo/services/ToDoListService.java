@@ -98,4 +98,8 @@ public class ToDoListService {
         return repo.save(toDoList);
     }
 
+    public void delete(Integer id) {
+        repo.deleteById(id);
+    }
+
 }
