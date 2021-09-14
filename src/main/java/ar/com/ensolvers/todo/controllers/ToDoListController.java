@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.*;
 import ar.com.ensolvers.todo.entities.ToDoList;
 import ar.com.ensolvers.todo.entities.User;
 import ar.com.ensolvers.todo.model.request.InfoNewToDoList;
+import ar.com.ensolvers.todo.model.request.InfoUpdateToDoList;
 import ar.com.ensolvers.todo.model.response.GenericResponse;
 import ar.com.ensolvers.todo.services.ToDoListService;
 import ar.com.ensolvers.todo.services.UserService;
+import ar.com.ensolvers.todo.services.ToDoListService.ValidateToDoListUpdate;
 import ar.com.ensolvers.todo.services.ToDoListService.ValidationToDoList;
 
 @RestController
@@ -70,6 +72,37 @@ public class ToDoListController {
         }
         return ResponseEntity.ok(service.findByToDoListId(id));
     }
+
+    @PutMapping("/todo-lists/{id}")
+    public ResponseEntity<GenericResponse> update(@PathVariable Integer id,
+            @RequestBody InfoUpdateToDoList newInfo) {
+
+        GenericResponse response = new GenericResponse();
+
+        ValidateToDoListUpdate result = service.validate(id);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        User user = userService.findByUsername(username);
+
+        if (result == ValidateToDoListUpdate.OK) {
+            ToDoList toDoList = service.updateToDoList(id, newInfo.tasks, user);
+
+            response.isOk = true;
+            response.message = "The To-Do List was correctly edited.";
+            response.id = toDoList.getToDoListId(); 
+
+            return ResponseEntity.ok(response);
+        }
+
+        else {
+            response.isOk = false;
+            response.message = "Error(" + result.toString() + ")";
+
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
 
 
 }
