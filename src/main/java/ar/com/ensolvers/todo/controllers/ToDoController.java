@@ -23,7 +23,7 @@ public class ToDoController {
     @Autowired
     ToDoListService toDoListService;
 
-    @PostMapping("/todo")
+    @PostMapping("/todos")
     public ResponseEntity<GenericResponse> create(@RequestBody InfoNewToDo newToDo) {
 
         GenericResponse response = new GenericResponse();
@@ -38,7 +38,7 @@ public class ToDoController {
 
     }
 
-    @GetMapping("/todo/{id}")
+    @GetMapping("/todos/{id}")
     public ResponseEntity<?> getToDoListById(@PathVariable Integer id) {
         GenericResponse response = new GenericResponse();
         if (!service.validateToDoExists(id)) {
@@ -49,7 +49,7 @@ public class ToDoController {
         return ResponseEntity.ok(service.findByToDoId(id));
     }
 
-    @PutMapping("/todo/{id}/finished")
+    @PutMapping("/todos/{id}/finished")
     public ResponseEntity<GenericResponse> update(@PathVariable Integer id,
             @RequestBody FinishedStatusRequest finishedState) {
 
@@ -66,7 +66,7 @@ public class ToDoController {
         return ResponseEntity.ok(r);
     }
 
-    @PutMapping("/todo/{id}/todo-list")
+    @PutMapping("/todos/{id}/todo-list")
     public ResponseEntity<GenericResponse> update(@PathVariable Integer id,
             @RequestBody InfoToDoListUpdate updateInfo) {
 
@@ -84,7 +84,7 @@ public class ToDoController {
         return ResponseEntity.ok(r);
     }
 
-    @DeleteMapping("/todo/{id}")
+    @DeleteMapping("/todos/{id}")
     public ResponseEntity<GenericResponse> delete(@PathVariable Integer id) {
 
         GenericResponse response = new GenericResponse();

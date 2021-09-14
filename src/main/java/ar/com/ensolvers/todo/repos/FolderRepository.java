@@ -9,4 +9,5 @@ import ar.com.ensolvers.todo.entities.Folder;
 public interface FolderRepository extends JpaRepository <Folder, Integer>{
  
     Folder findByFolderId(Integer id);
+    Folder findByTitle(String title);
 }
