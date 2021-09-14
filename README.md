@@ -4,7 +4,9 @@ Challenge Ensolvers. Web application that allows you to create to-do items and f
 
 <h1 align="center">ToDo Challenge</h1>
 In this application the user can choose to create a single ToDo to add to an already created ToDoList or just create one without setting it to a particular ToDoList being able to assign it one at a later time. Also the user can create a List without any tasks in it, having the option the add the toDos later. Finally the user can choose to create a ToDoList with it's ToDos asigned at the moment of the creation if needed.
-## Tecnologias utilizadas:
+
+
+### <div align="center"> Tecnologias utilizadas </div>  
 #### Backend:
 - Java 11
 - SpringBoot 2.5.4
