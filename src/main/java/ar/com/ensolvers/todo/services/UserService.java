@@ -44,7 +44,7 @@ public class UserService {
     user.setEmail(email);
     user.setPassword(Crypto.encrypt(password, email.toLowerCase()));
 
-    return user;
+    return userRepository.save(user);
   }
 
   public User findByEmail(String email) {

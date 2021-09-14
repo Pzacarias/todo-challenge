@@ -24,9 +24,6 @@ public class User {
 
     private String email;
 
-    @Column(name = "login_date")
-    private Date loginDate;
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Folder> folders = new ArrayList <>();
 
@@ -66,14 +63,6 @@ public class User {
         this.email = email;
     }
 
-    public Date getLoginDate() {
-        return loginDate;
-    }
-
-    public void setLoginDate(Date loginDate) {
-        this.loginDate = loginDate;
-    }
-
     public List<Folder> getFolders() {
         return folders;
     }
@@ -90,6 +79,16 @@ public class User {
         this.toDoLists = toDoLists;
     }
 
+    public void addToDoList(ToDoList toDoList){
+        this.toDoLists.add(toDoList);
+        toDoList.setUser(this);
+    }
+
+    public void addFolder(Folder folder){
+        this.folders.add(folder);
+        folder.setUser(this);
+    }
+ 
     
    
     

@@ -58,6 +58,7 @@ public class ToDoList {
 
     public void setUser(User user) {
         this.user = user;
+        
     }
 
     public void addTasks(ToDo toDo) {

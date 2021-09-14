@@ -49,7 +49,7 @@ public class AuthController {
 
     }
 
-    @PostMapping("auth/login") // probando nuestro login
+    @PostMapping("auth/login") 
     public ResponseEntity<?> createAuthenticationToken(@RequestBody LoginRequest authenticationRequest,
             BindingResult results) throws Exception {
 
@@ -58,15 +58,9 @@ public class AuthController {
         UserDetails userDetails = userService.getUserAsUserDetail(loggedUser);
         Map<String, Object> claims = userService.getUserClaims(loggedUser);
 
-        // Genero los roles pero con los Claims(los propositos)
-        // En este caso nuestros claims tienen info del tipo de usuario
-        // y de la entidad que representa
-        // Esta info va a viajar con el token, o sea, cualquiera puede
-        // ver esos ids de que user pertenecen si logran interceptar el token
-        // Por eso es que en cada request debemos validar el token(firma)
+
         String token = jwtTokenUtil.generateToken(userDetails, claims);
 
-        // Cambio para que devuelva el full perfil
         User u = userService.findByUsername(authenticationRequest.username);
 
         LoginResponse r = new LoginResponse();

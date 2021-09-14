@@ -5,9 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ar.com.ensolvers.todo.entities.Folder;
-import ar.com.ensolvers.todo.entities.ToDo;
-import ar.com.ensolvers.todo.entities.ToDoList;
+import ar.com.ensolvers.todo.entities.*;
 import ar.com.ensolvers.todo.repos.ToDoListRepository;
 
 @Service
@@ -20,7 +18,7 @@ public class ToDoListService {
     FolderService folderService;
 
 
-    public ToDoList create(String title, List<ToDo> tasks, Integer folderId) {
+    public ToDoList create(String title, List<ToDo> tasks, Integer folderId, User user) {
 
         ToDoList toDoList = new ToDoList();
         toDoList.setTitle(title);
@@ -28,12 +26,19 @@ public class ToDoListService {
         if (folderId != null){
             Folder folder = folderService.findFolder(folderId);
             toDoList.setFolder(folder);
+            user.addFolder(folder);
+            
+        }
+        else{
+            toDoList.setFolder(null);
         }
 
         for (ToDo toDo: tasks) {
            toDoList.addTasks(toDo);
         }
-                      
+
+        user.addToDoList(toDoList);
+                              
         return repo.save(toDoList);
     }
 

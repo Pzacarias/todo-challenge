@@ -2,12 +2,16 @@ package ar.com.ensolvers.todo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import ar.com.ensolvers.todo.entities.ToDoList;
+import ar.com.ensolvers.todo.entities.User;
 import ar.com.ensolvers.todo.model.request.InfoNewToDoList;
 import ar.com.ensolvers.todo.model.response.GenericResponse;
 import ar.com.ensolvers.todo.services.ToDoListService;
+import ar.com.ensolvers.todo.services.UserService;
 import ar.com.ensolvers.todo.services.ToDoListService.ValidationToDoList;
 
 @RestController
@@ -15,6 +19,9 @@ public class ToDoListController {
 
     @Autowired
     ToDoListService service;
+
+    @Autowired
+    UserService userService;
 
 
     @PostMapping("/todo-lists")
@@ -24,8 +31,12 @@ public class ToDoListController {
 
         ValidationToDoList result = service.validate(newToDoList.title);
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        User user = userService.findByUsername(username);
+
         if (result == ValidationToDoList.OK) {
-            ToDoList toDoList = service.create(newToDoList.title, newToDoList.tasks, newToDoList.folderId);
+            ToDoList toDoList = service.create(newToDoList.title, newToDoList.tasks, newToDoList.folderId, user);
 
             response.isOk = true;
             response.message = "A new To-Do List has been created";
@@ -41,6 +52,8 @@ public class ToDoListController {
             return ResponseEntity.badRequest().body(response);
         }
     }
+
+    
     
 
 
