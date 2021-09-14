@@ -14,11 +14,17 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
-
+/**
+ * Crypto
+ * 
+ * Source:
+ * //https://howtodoinjava.com/security/aes-256-encryption-decryption/
+ *
+ */
 public class Crypto {
 
-    
-    private static String secretKey = "las papas dia son tan ricas!!!!";
+   
+    private static String secretKey = "kubrick is the best director";
 
     public static String encrypt(String strToEncrypt, String salt) {
         try {

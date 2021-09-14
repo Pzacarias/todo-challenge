@@ -18,6 +18,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import ar.com.ensolvers.todo.services.JWTUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
 
+/**
+ * (OncePerRequest)
+ */
 @Component
 public class JWTRequestFilter extends OncePerRequestFilter {
 
@@ -38,6 +41,7 @@ public class JWTRequestFilter extends OncePerRequestFilter {
 
         String jwtToken = null;
 
+        
         if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
 
             jwtToken = requestTokenHeader.substring(7);
@@ -60,9 +64,13 @@ public class JWTRequestFilter extends OncePerRequestFilter {
 
         }
 
+       
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
+            
             UserDetails userDetails = this.jwtUserDetailsService.loadUserByUsername(username, jwtToken);
+
+         
 
             if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
 
@@ -73,6 +81,8 @@ public class JWTRequestFilter extends OncePerRequestFilter {
                 usernamePasswordAuthenticationToken
 
                         .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+               
 
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 
